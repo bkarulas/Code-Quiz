@@ -8,6 +8,38 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <script type="text/javascript" src="assets/js/script.js"></script>
+
     </head>
+    <body class="container">
+        <div id="start">
+            <div class = "row, title">
+                <h2>Coding Quiz Chanllenge</h2>
+            </div>
+            <div class = "row, main">
+                Try to answer the following code-related questions with the time limit. Keep in mind that incorrect answers will be penalize your scoretime by ten seconds!
+            </div>
+            <div class = "row, startbtn">
+                <button type="button" class="btn btn-primary btn-lg" id="quizStrat" onclick="startQuiz();">Strat Quiz</button>
+            </div>
+        </div>
+        <div id="quiz">
+            <div id="timer"></div>
+            <div id="question"></div>
+            <div id="choose">
+                    <button type="button" class="btn btn-outline-primary" id="cb0" onclick="check(0)"></button><br>
+                    <button type="button" class="btn btn-outline-primary" id="cb1" onclick="check(1)"></button><br>
+                    <button type="button" class="btn btn-outline-primary" id="cb2" onclick="check(2)"></button><br>
+                    <button type="button" class="btn btn-outline-primary" id="cb3" onclick="check(3)"></button><br>
+            </div>
+            <hr>
+            <div id="result"></div>
+        </div>
+        <div id="end">
+            <div class = "row, title">
+                <h2>All Done</h2>
+            </div>
+            <div id="score"></div>
+        </div>
+        <script type="text/javascript" src="assets/js/script.js"></script>
+    </body>
 </html>
