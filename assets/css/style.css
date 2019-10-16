@@ -1,3 +1,6 @@
+body{
+    margin-top: 3em;
+}
 .container{
     text-align: center;
 }
@@ -11,4 +14,35 @@
 
 button{
     padding-top: 50px;
+}
+
+#timer{
+    text-align: right;
+    font-size: 20px;
+}
+input{
+
+    margin: 10px;
+    height: 35px;
+    padding-bottom: 5px;
+}
+
+button{
+    margin: 5px;
+}
+#score{
+    font-weight: bolder;
+}
+
+.container{
+    width: 70%;
+}
+
+#choose, #question{
+    text-align: left;
+}
+
+#timer{
+    text-align: center;
+    font-weight: bolder;
 }
