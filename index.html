@@ -5,15 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Code Quiz</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <!--Array of questions location-->
+        <script type="text/javascript" src="assets/js/questions.js"></script>
     </head>
     <body class="container">
         <div class="shadow p-3 mb-5 bg-white rounded">
+            <!--Start screen of the quiz-->
             <div id="start">
-                <div class = "row, title">
-                    <h2>Coding Quiz Chanllenge</h2>
+                <div class = "row">
+                    <div class="col-2">
+                        <div onclick="highScore()"><b>View Highscores</b></div>
+                    </div>
+                    <div class="col-8">
+                        <h2>Coding Quiz Chanllenge</h2>
+                    </div>
+                    <div class="col-2 alert alert-primary" role="alert">
+                        <b>Timer<br>
+                           0</b>
+                    </div>
                 </div>
                 <div class = "row, main">
                     Try to answer the following code-related questions with the time limit. Keep in mind that incorrect answers will be penalize your scoretime by ten seconds!
@@ -27,8 +40,8 @@
                 <!--Timer-->
                 <div class="offset-md-10">
                     <div class="alert alert-primary" role="alert">
-                        <b>TIMER</b>
-                        <div id="timer">100 sec</div>
+                        <b>Timer</b>
+                        <div id="timer"></div>
                     </div>
                 </div>
                 <!--The Questions-->
@@ -49,12 +62,15 @@
                 <div class = "row, title">
                     <h2>All Done</h2>
                 </div>
+                <!--Shows the user's score after the quiz is done-->
                 <div id="score"></div>
+                <!--Area where the user enters in thir initials-->
                 <div id = "submitScore">
                     <input type="text" placeholder="Enter your Initials" id="initial"/>
                     <button type="button" class="btn btn-primary" id="initalBtn">Submit</button>
                 </div>
             </div>
+            <!--Displays the high scores-->
             <div id="hightScore">
                 <div class = "row, title">
                     <h2>Highscores</h2>

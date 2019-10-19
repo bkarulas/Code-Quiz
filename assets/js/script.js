@@ -1,66 +1,42 @@
-var questions = [
-    {
-        title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"
-    },
-    {
-        title: "The condition in an if / else statement is enclosed within _____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "curly brackets"
-    },
-    {
-        title:"Arrays in JavaScript can be used to store",
-        choices: ["Numbers & Strings", "Other Arrays", "Boolians", "All of the Above"],
-        answer: "All of the Above"
-    },
-    {
-        title:"String vaules must be enclosed within _____ when being assigned to variables",
-        choices: ["Quotes", "Commas", "Curly Brackets", "Parenthesis"],
-        answer: "Quotes"
-    },
-    {
-        title:"A very useful tool used during development and debuging for printing conent to the debugger is:",
-        choices: ["JavaScript", "Terminal/Bash", "For Loops", "Console.Log"],
-        answer: "Console.Log"
-    },
-  ];
+//Global variables
 var questionDiv = document.getElementById("question");
 var startDiv = document.getElementById("start");
 var quizDiv = document.getElementById("quiz");
 var endDiv = document.getElementById("end");
 var highScoreDiv = document.getElementById("hightScore");
-var choiceBtn0 = document.getElementById("cb0");
-var choiceBtn1 = document.getElementById("cb1");
-var choiceBtn2 = document.getElementById("cb2");
-var choiceBtn3 = document.getElementById("cb3");
 var i = 0;
-var correctAnswewrs = 0;
 var userScore = 0;
 var count = 0;
 
-quizDiv.style.display = "none";
-endDiv.style.display = "none";
-highScoreDiv.style.display = "none";
+/*The page is broken up into 4 major DIV tags:
+    1. START - the strating screen
+    2. QUIZ - the actual quiz
+    3. END - after the quiz is completed
+    4. HIGHSCORE - the high scores*/
+quizDiv.style.display = "none"; //hides the quiz div section
+endDiv.style.display = "none"; //hides the end div section
+highScoreDiv.style.display = "none"; //hides the highScore div section
 
+//after the user click on Start Quiz
 function startQuiz (){
-    count = 60;
-    timer ();
-    quiz ();
-    quizDiv.style.display = "block";
-    startDiv.style.display = "none";
-    endDiv.style.display = "none";
-    highScoreDiv.style.display = "none";
+    count = 75; //sets the timer to 75
+    timer (); //calls the timer function
+    quiz (); //calls the quiz funtion
+    quizDiv.style.display = "block"; //displays the quiz div section 
+    startDiv.style.display = "none"; //hides the start dev section
+    endDiv.style.display = "none";//hides the end div section
+    highScoreDiv.style.display = "none";//hides the highScore div section
 }
-
+//the questions
 function quiz (){
     if (i < questions.length){
         questionDiv.textContent = questions[i].title;
-        choiceBtn0.textContent = questions[i].choices[0];
-        choiceBtn1.textContent = questions[i].choices[1];
-        choiceBtn2.textContent = questions[i].choices[2];
-        choiceBtn3.textContent = questions[i].choices[3];
+        document.getElementById("cb0").textContent = questions[i].choices[0];
+        document.getElementById("cb1").textContent = questions[i].choices[1];
+        document.getElementById("cb2").textContent = questions[i].choices[2];
+        document.getElementById("cb3").textContent = questions[i].choices[3];
     }
+    //once the quiz is done, it calls the endQuiz function
     else{
         endQuiz ();
     }
@@ -68,74 +44,97 @@ function quiz (){
 
 var resultDiv = document.getElementById("result");
 
+//once the user clicks on an answer, it checks to see if they are correct
 function check (a){
+    var audioWrong = new Audio("assets/audio/wrong.mp3");
+    var audioCorrect = new Audio("assets/audio/correct.mp3");
+    //if the are correct it will display a "Correct" message and play a ding sound
     if (questions[i].choices[a] === questions[i].answer){
         resultDiv.textContent = "Correct";
-        correctAnswewrs++;
-
+        audioCorrect.play();
     }
+    //if the user is incorrect it will display an "Incorrect" message and play a buzz sound and takes 10 seconds off the users score
     else{
         resultDiv.textContent = "Wrong";
         count = count-10;
+        audioWrong.play();
     }
+    //increase i to the next number -->next question
     i++;
+    //calls the quiz function with the new value of i
    quiz ();
 }
 
+// after the las question is completed
 function endQuiz (countInter){
+    var audioDone = new Audio("assets/audio/tada.mp3");
+    //sets the users score to what their final time was
     userScore = count;
+    //resets the timer to 0
     count = 0;
+    //plays a completed sound clip
+    audioDone.play();
     scoreDiv = document.getElementById("score");
-    quizDiv.style.display = "none";
-    endDiv.style.display = "block";
+    quizDiv.style.display = "none"; //hides the quiz div section
+    endDiv.style.display = "block"; //displays the end div section
     clearInterval(countInter);
     scoreDiv.textContent = "Your Final score is: " + userScore;
     return userScore;
 }
-var inputInital = document.getElementById("initial");
+
 var subScore = document.getElementById("initalBtn");
+//once the users enters their initials the submit their score to local storage
 subScore.onclick = function(){
-    var key = inputInital.value;
-    var value = userScore;
-    if (key){
+    var inputInital = document.getElementById("initial");
+    var key = userScore;
+    var value = inputInital.value;
+    if (value){
         localStorage.setItem(key, value);
     }
+    //then calls the highscore function to display all highscores
     highScore();
 }
 
 
-
+//function to display all highscores
 function highScore(){
     var scoresDispalyDiv = document.getElementById("scoresDispaly");
+    startDiv.style.display = "none";
     endDiv.style.display = "none";
-    highScoreDiv.style.display = "block";
-        for (var c = 0; c <localStorage.length; c++){
+    highScoreDiv.style.display = "block"; //displays highScore div
+        //call all highscores from local storage to display them
+    for (var c = 0; c <localStorage.length; c++){
         var key = localStorage.key(c);
         var value = localStorage.getItem(key);
         var newScoreP = document.createElement("p");
-        newScoreP.textContent = key + " - " + value;
+        newScoreP.textContent = value + " - " + key;
         scoresDispalyDiv.appendChild(newScoreP);
     }
 }
 
+//timer functon
 function timer (){
+    //changes the interval of the counter ever 1000 milliseconds or 1 second
     var countInter = setInterval(counter, 1000);
     var timerDiv = document.getElementById("timer");
     timerDiv.textContent = count;
     function counter (){
+        //makes the counter count down
         count--;
         timerDiv.textContent = count;
+        //once the timer hits 0 it stops it from going to negative numbers
         if (count<=0){
             clearInterval(countInter);
         }
     }
     
 }
-
+ //reloads the page
 reStart.onclick = function(){
     location.reload();
 }
 
+//clears everything in local storage
 clearScores.onclick = function(){
     localStorage.clear();
     document.getElementById("scoresDispaly").textContent = "";
