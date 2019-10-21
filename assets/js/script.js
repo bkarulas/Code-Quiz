@@ -4,6 +4,8 @@ var startDiv = document.getElementById("start");
 var quizDiv = document.getElementById("quiz");
 var endDiv = document.getElementById("end");
 var highScoreDiv = document.getElementById("hightScore");
+var resultDiv = document.getElementById("result");
+var subScore = document.getElementById("initalBtn");
 var i = 0;
 var userScore = 0;
 var count = 0;
@@ -27,6 +29,7 @@ function startQuiz (){
     endDiv.style.display = "none";//hides the end div section
     highScoreDiv.style.display = "none";//hides the highScore div section
 }
+
 //the questions
 function quiz (){
     if (i < questions.length){
@@ -41,8 +44,6 @@ function quiz (){
         endQuiz ();
     }
 }
-
-var resultDiv = document.getElementById("result");
 
 //once the user clicks on an answer, it checks to see if they are correct
 function check (a){
@@ -82,7 +83,6 @@ function endQuiz (countInter){
     return userScore;
 }
 
-var subScore = document.getElementById("initalBtn");
 //once the users enters their initials the submit their score to local storage
 subScore.onclick = function(){
     var inputInital = document.getElementById("initial");
@@ -90,6 +90,8 @@ subScore.onclick = function(){
     var value = inputInital.value;
     if (value){
         localStorage.setItem(key, value);
+        key = "";
+        value = "";
     }
     //then calls the highscore function to display all highscores
     highScore();
@@ -99,16 +101,18 @@ subScore.onclick = function(){
 //function to display all highscores
 function highScore(){
     var scoresDispalyDiv = document.getElementById("scoresDispaly");
+    scoresDispalyDiv.innerHTML = "";
     startDiv.style.display = "none";
     endDiv.style.display = "none";
     highScoreDiv.style.display = "block"; //displays highScore div
-        //call all highscores from local storage to display them
+    //call all highscores from local storage to display them
     for (var c = 0; c <localStorage.length; c++){
         var key = localStorage.key(c);
         var value = localStorage.getItem(key);
         var newScoreP = document.createElement("p");
         newScoreP.textContent = value + " - " + key;
         scoresDispalyDiv.appendChild(newScoreP);
+
     }
 }
 
@@ -129,9 +133,21 @@ function timer (){
     }
     
 }
+
+//the function to reset the game, and go back to the strat screen with out refreshing the page
+function restart(){
+    i = 0;
+    userScore = 0;
+    count = 0;
+    quizDiv.style.display = "none"; //hides the quiz div section
+    endDiv.style.display = "none"; //hides the end div section
+    highScoreDiv.style.display = "none"; //hides the highScore div section
+    startDiv.style.display = "block"; //shows the start dev section
+    }
+
  //reloads the page
 reStart.onclick = function(){
-    location.reload();
+    restart ();
 }
 
 //clears everything in local storage
