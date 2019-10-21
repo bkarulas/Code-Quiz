@@ -26,9 +26,11 @@ How the quiz works:
 
 ![code quiz](/screenshots/completed.JPG)
 
-  * When time runs out and/or all questions are answered, the user is presented with their final score (the time remianing) and asked to enter their initials. Their final score and initials are then stored in `localStorage`.
+  * When time runs out and/or all questions are answered, the user is presented with their final score (the time remaining) and asked to enter their initials. Their final score and initials are then stored in `localStorage`.
 
   * Once the users clicks on "Submit" they will be taken to the high score screen to view all high scores. On the Highscore screen they will have the option to clear the highsocres from local storage or start the quiz again
+
+  * If the user chooses to restart the game the, page will not refresh, it will just reset all settings and take the user back to the starting page
 
 ![code quiz](/screenshots/highscores.JPG)
 
